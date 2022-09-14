@@ -1,0 +1,25 @@
+filebeat.inputs:
+- type: filestream
+  id: my-filestream-id
+  enabled: true
+  paths:
+    - /home/tomcat/tomcat/logs/*.txt
+    - /home/tomcat/tomcat/logs/*.log
+    - /home/tomcat/tomcat/logs/catalina.out
+filebeat.config.modules:
+  path: ${path.config}/modules.d/*.yml
+  reload.enabled: false
+setup.template.settings:
+  index.number_of_shards: 1
+output.elasticsearch:
+  hosts: ["http://172.16.58.15:9200"]
+  protocol: "http"
+  username: "filebeat"
+  password: "6V7gN4ymBfHH"
+processors:
+  - add_host_metadata:
+      when.not.contains.tags: forwarded
+  - add_cloud_metadata: ~
+  - add_docker_metadata: ~
+  - add_kubernetes_metadata: ~
+logging.level: info

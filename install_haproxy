@@ -10,4 +10,5 @@ firewall-cmd --reload
 setsebool -P haproxy_connect_any 1
 echo "local0.*             /var/log/haproxy.log" >> /etc/rsyslog.conf
 cd /etc/rsyslog.d
-wget 
+wget https://raw.githubusercontent.com/SandmanZac/public/main/haproxy.conf
+systemctl reload rsyslog

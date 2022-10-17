@@ -1,0 +1,9 @@
+systemctl disable postfix
+yum -y install wget bind-utils
+yum -y install haproxy
+cd /etc/haproxy
+mv -f haproxy.cfg haproxy.cfg.orig
+wget 
+systemctl enable --now haproxy
+firewall-cmd --add-service=nfs --permanent
+firewall-cmd --reload

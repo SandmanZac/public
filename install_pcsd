@@ -11,7 +11,7 @@ firewall-cmd --permanent --add-service=high-availability; firewall-cmd --reload
 pcs cluster auth nfs1.caz.one nfs2.caz.one arb.caz.one
 pcs cluster setup --name NFS nfs1.caz.one nfs2.caz.one arb.caz.one --auto_tie_breaker=0 --enable --start
 pcs cluster status
-# pcs property set no-quorum-policy=ignore
-# pcs property set stonith-enabled=false
+pcs property set no-quorum-policy=ignore
+pcs property set stonith-enabled=false
 pcs resource create virtual_ip ocf:heartbeat:IPaddr2 ip=192.168.1.40 cidr_netmask=24 op monitor interval=20s
 pcs status

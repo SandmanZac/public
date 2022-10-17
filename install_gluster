@@ -8,7 +8,7 @@ yum --enablerepo=centos-gluster9 -y install glusterfs-server
 systemctl enable --now glusterd
 gluster --version
 firewall-cmd --add-service=glusterfs --permanent
-firewall-cmd --add-service=nfs --permanent
+firewall-cmd --add-service={nfs,nfs3,mountd,rpc-bind} --permanent
 firewall-cmd --reload
 mkdir /nfs
 pvcreate /dev/sdb

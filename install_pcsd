@@ -5,7 +5,7 @@ systemctl enable corosync.service
 systemctl enable pacemaker.service
 firewall-cmd --permanent --add-service=high-availability; firewall-cmd --reload
 # on all nodes set the password for hacluster to the same password
-# passswd hacluster
+# passwd hacluster
 #
 # from a single node run the rest of these commands:
 pcs cluster auth nfs1.caz.one nfs2.caz.one arb.caz.one

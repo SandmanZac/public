@@ -1,4 +1,5 @@
 yum -y install corosync pacemaker pcs
+setsebool -P daemons_enable_cluster_mode 1
 systemctl enable pcsd.service
 systemctl start pcsd.service
 systemctl enable corosync.service
@@ -14,4 +15,19 @@ pcs cluster status
 pcs property set no-quorum-policy=ignore
 pcs property set stonith-enabled=false
 pcs resource create virtual_ip ocf:heartbeat:IPaddr2 ip=192.168.1.40 cidr_netmask=24 op monitor interval=20s
+pcs status
+# if we want to enable fencing, we need limited access in vCenter.  We need to be able to Power On and Off the VMs in the cluster, only the VMs in the cluster
+# ignore the rest if you do not have credentials
+yum install -y fence-agents-vmware-soap
+# with valid SSL cert for vCenter
+# VCENTER_IP is the IP Address to connect to vCenter
+# HOSTNAME is the hostname the VM thinks it's called
+# VCENTER_VM_NAME is the name as vCenter calls it
+# VCENTER_ACCOUNT is the account with power on/off access
+# VCENTER_PASSWORD is the password for the VCENTER_ACCOUNT account
+fence_vmware_soap --ip VCENTER_IP --ssl --ssl-insecure --action list --username="VCENTER_ACCOUNT" --password="CENTER_PASSWORD" | grep 
+pcs -f stonith_cfg stonith create vcenter-fence fence_vmware_soap ipaddr=VCENTER_IP ipport=443 ssl_insecure=1 inet4_only=1 login="VCENTER_ACCOUNT" passwd="VCENTER_PASSWORD" action=reboot pcmk_host_map="HOSTNAME1:VCENTER_VM_NAME1;HOSTNAME2:VCENTER_VM_NAME2" pcmk_host_check=static-list pcmk_host_list="VCENTER_VM_NAME1,VCENTER_VM_NAME2" power_wait=3 op monitor interval=60s
+pcs -f stonith_cfg property set stonith-enabled=true
+pcs stonith show
+pcs stonith show vmfence --full
 pcs status

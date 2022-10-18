@@ -18,7 +18,7 @@ lvcreate -L SIZE -T -n lv00 vg00
 mkfs.xfs -f -i size=512 -n size=8192 -d su=128k,sw=10 /dev/mapper/vg00-lv00
 device="/dev/mapper/vg00-lv00"
 mountpoint="/nfs"
-options="xfs rw,inode64,noatime,nouuid 1 2"
+options="xfs rw,acl,inode64,noatime,nouuid 1 2"
 echo "$device $mountpoint $options" >> /etc/fstab
 mount /nfs
 # on primary node only
@@ -41,6 +41,10 @@ mount /nfs
 
 # Monitoring to tune usage: https://docs.gluster.org/en/latest/Administrator-Guide/Monitoring-Workload/
 # Kernel tuning https://docs.gluster.org/en/latest/Administrator-Guide/Linux-Kernel-Tuning/
+
+# ACL
+# setfacl –m --set o::r /nfs/gv00/data
+# setfacl -m u:antony:rw /nfs/gv00/data/testfile
 cd /etc/ganesha/
 mv ganesha.conf ganesha.conf.orig
 wget https://raw.githubusercontent.com/SandmanZac/public/main/ganesha.conf

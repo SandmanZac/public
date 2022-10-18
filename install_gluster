@@ -54,3 +54,6 @@ systemctl enable --now nfs-ganesha
 showmount -e localhost
 # quota
 # gluster volume quota vg00 limit-usage /dir01 1GB
+
+# Active Directory Integration
+# https://access.redhat.com/documentation/en-us/red_hat_gluster_storage/3.1/html/administration_guide/chap-integrating_rhgs_ad

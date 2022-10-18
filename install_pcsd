@@ -31,3 +31,5 @@ pcs -f stonith_cfg property set stonith-enabled=true
 pcs stonith show
 pcs stonith show vmfence --full
 pcs status
+# if vcenter isn't an option, and we have any scsi devices
+# https://www.server-world.info/en/note?os=CentOS_Stream_9&p=pacemaker&f=2

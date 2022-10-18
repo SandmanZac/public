@@ -28,6 +28,19 @@ mount /nfs
 # gluster volume start gv00
 # gluster volume set gv00 features.trash on
 # gluster volume set gv00 storage.linux-io_uring on
+# console gluster volume set gv00 group metadata-cache
+# console gluster volume set gv00 performance.readdir-ahead on
+# gluster volume set gv00 performance.parallel-readdir on
+# console gluster volume set gv00 group nl-cache
+# gluster volume set gv00 nl-cache-positive-entry on
+# If we have a lot of small files being read
+# gluster volume set gv00 performance.cache-invalidation on
+# gluster volume set gv00 features.cache-invalidation on
+# gluster volume set gv00 performance.qr-cache-timeout 600 # 10 min recommended setting
+# gluster volume set gv00 cache-invalidation-timeout 600 # 10 min recommended setting
+
+# Monitoring to tune usage: https://docs.gluster.org/en/latest/Administrator-Guide/Monitoring-Workload/
+# Kernel tuning https://docs.gluster.org/en/latest/Administrator-Guide/Linux-Kernel-Tuning/
 cd /etc/ganesha/
 mv ganesha.conf ganesha.conf.orig
 wget https://raw.githubusercontent.com/SandmanZac/public/main/ganesha.conf

@@ -28,10 +28,10 @@ mount /nfs
 # gluster volume start gv00
 # gluster volume set gv00 features.trash on
 # gluster volume set gv00 storage.linux-io_uring on
-# console gluster volume set gv00 group metadata-cache
-# console gluster volume set gv00 performance.readdir-ahead on
+# gluster volume set gv00 group metadata-cache
+# gluster volume set gv00 performance.readdir-ahead on
 # gluster volume set gv00 performance.parallel-readdir on
-# console gluster volume set gv00 group nl-cache
+# gluster volume set gv00 group nl-cache
 # gluster volume set gv00 nl-cache-positive-entry on
 # If we have a lot of small files being read
 # gluster volume set gv00 performance.cache-invalidation on

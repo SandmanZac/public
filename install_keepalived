@@ -1,0 +1,7 @@
+yum install -y keepalived
+cd /etc/keepalived/
+
+firewall-cmd --zone=public --permanent --add-rich-rule='rule protocol value="vrrp" accept'; firewall-cmd --reload
+echo "net.ipv4.ip_nonlocal_bind = 1" >> /etc/sysctl.conf
+sysctl -p
+systemctl restart keepalived

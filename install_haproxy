@@ -1,6 +1,5 @@
 systemctl disable postfix
-yum -y install wget bind-utils
-yum -y install haproxy
+yum -y install wget bind-utils haproxy
 cd /etc/haproxy
 mv -f haproxy.cfg haproxy.cfg.orig
 wget https://raw.githubusercontent.com/SandmanZac/public/main/haproxy.cfg

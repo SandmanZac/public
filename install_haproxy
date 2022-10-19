@@ -4,7 +4,6 @@ cd /etc/haproxy
 mv -f haproxy.cfg haproxy.cfg.orig
 wget https://raw.githubusercontent.com/SandmanZac/public/main/haproxy.cfg
 systemctl enable --now haproxy
-firewall-cmd --add-service=nfs --permanent
 firewall-cmd --reload
 setsebool -P haproxy_connect_any 1
 echo "local0.*             /var/log/haproxy.log" >> /etc/rsyslog.conf

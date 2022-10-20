@@ -51,6 +51,8 @@ mv ganesha.conf ganesha.conf.orig
 wget https://raw.githubusercontent.com/SandmanZac/public/main/ganesha.conf
 MY_IP=`ip addr show $(ip route | awk '/default/ { print $5 }') | grep "inet" | head -n 1 | awk '/inet/ {print $2}' | cut -d '/' -f1`
 sed "s/IP_ADDRESS/$MY_IP/g" ganesha.conf > ganesha.conf2; mv -f ganesha.conf2 ganesha.conf
+wget https://raw.githubusercontent.com/SandmanZac/public/main/ganesha_t.te
+semodule -i ganesha_t.pp
 systemctl enable --now nfs-ganesha
 sleep 5
 showmount -e localhost

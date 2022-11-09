@@ -1,0 +1,8 @@
+yum -y install sssd sssd-client sssd-krb5 pam_krb5 oddjob oddjob-mkhomedir adcli realmd krb5-workstation samba-common samba-common-tools openldap-clients
+realm join -U administrator caz.one
+cd /etc
+wget KRB5.CONF
+wget IDMAPD.CONF
+wget NSSWITCH.CONF
+cd /etc/sssd
+wget SSSD.CONF

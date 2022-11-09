@@ -8,8 +8,7 @@ systemctl enable --now glusterd
 yum -y install centos-release-nfs-ganesha30
 sed -i -e "s/enabled=1/enabled=0/g" /etc/yum.repos.d/CentOS-NFS-Ganesha-30.repo
 yum --enablerepo=centos-nfs-ganesha30 -y install nfs-ganesha-gluster
-firewall-cmd --add-service=glusterfs --permanent
-firewall-cmd --add-service={nfs,nfs3,mountd,rpc-bind} --permanent
+firewall-cmd --add-service={glusterfs,nfs,nfs3,mountd,rpc-bind} --permanent
 firewall-cmd --reload
 mkdir /nfs
 pvcreate /dev/sdb

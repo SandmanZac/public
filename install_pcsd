@@ -9,8 +9,8 @@ firewall-cmd --permanent --add-service=high-availability; firewall-cmd --reload
 # passwd hacluster
 #
 # from a single node run the rest of these commands:
-pcs cluster auth nfs1.caz.one nfs2.caz.one arb.caz.one
-pcs cluster setup --name NFS nfs1.caz.one nfs2.caz.one arb.caz.one --auto_tie_breaker=0 --enable --start
+pcs cluster auth nfs1-int.caz.one nfs2-int.caz.one nfs3-int.caz.one
+pcs cluster setup --name NFS nfs1-int.caz.one nfs2-int.caz.one nfs3-int.caz.one --auto_tie_breaker=0 --enable --start
 pcs cluster status
 pcs property set no-quorum-policy=ignore
 pcs property set stonith-enabled=false

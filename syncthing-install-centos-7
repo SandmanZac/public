@@ -1,0 +1,31 @@
+echo <<EOF > /etc/yum.repos.d/syncthing.repo
+[copr:copr.fedorainfracloud.org:daftaupe:syncthing]
+name=Copr repo for syncthing owned by daftaupe
+baseurl=https://download.copr.fedorainfracloud.org/results/daftaupe/syncthing/epel-7-$basearch/
+type=rpm-md
+skip_if_unavailable=True
+gpgcheck=1
+gpgkey=https://download.copr.fedorainfracloud.org/results/daftaupe/syncthing/pubkey.gpg
+repo_gpgcheck=0
+enabled=1
+enabled_metadata=1
+EOF
+
+yum update
+yum -y install supervisor syncthing
+cd /etc/supervisord.d
+vi syncthing.ini
+cat <<EOF > /etc/supervisord.d/syncthing.ini
+[program:syncthing]
+autorestart = True
+directory = /mnt/Cache/syncthing
+user = zac
+command = /bin/syncthing --no-browser --gui-address=0.0.0.0:8384 --no-restart --logflags=0 --home="/mnt/Cache/syncthing/.config/syncthing"
+environment = STNORESTART="1", HOME="/mnt/Cache/syncthing"
+EOF
+
+systemctl enable --now supervisord
+supervisorctl status syncthing
+supervisorctl tail syncthing
+firewall-cmd --zone=public --add-port=8384/tcp --permanent
+firewall-cmd --reload

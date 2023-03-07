@@ -13,8 +13,6 @@ EOF
 
 yum update
 yum -y install supervisor syncthing
-cd /etc/supervisord.d
-vi syncthing.ini
 cat <<EOF > /etc/supervisord.d/syncthing.ini
 [program:syncthing]
 autorestart = True
